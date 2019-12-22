@@ -45,6 +45,25 @@ public class PackageResolutionTest {
 
     }
 
+    @Test
+    void choosesLightestCombinationWhenCostsAreTheSame() {
+
+        Item item1 =  new Item(1l, 3d, 1l);
+        Item item2 =  new Item(2l, 2d, 1l);
+        Item item3 =  new Item(3l, 1d, 1l);
+
+        PackagingSpecification packagingSpecification = new PackagingSpecification(5d, asList(item1, item2, item3));
+
+        PackagingResolver resolver = new PackagingResolver();
+
+        List<Long> result = resolver.resolvePackaging(packagingSpecification);
+
+        assertThat(result).contains(2l, 3l);
+
+
+
+    }
+
 
     @Test
     void choosesBestPriceCombinationWithinWeightConstraints() {

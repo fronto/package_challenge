@@ -23,7 +23,20 @@ public class PackagingResolver {
         Optional<CompositeItem> max = lightEnough.stream()
                 .max(Comparator.comparing(CompositeItem::combinedCost));
 
-        return max.map(CompositeItem::indexNumbers).orElse(Collections.emptyList());
+        if(max.isPresent()) {
+
+            Long maximumCost = max.get().combinedCost();
+            Optional<CompositeItem> minWeight = lightEnough.stream()
+                    .filter(x -> maximumCost.equals(x.combinedCost()))
+                    .min(Comparator.comparing(CompositeItem::combinedWeight));
+
+            return minWeight
+                    .map(CompositeItem::indexNumbers)
+                    .get();
+
+        }
+
+        return Collections.emptyList();
 
     }
 
