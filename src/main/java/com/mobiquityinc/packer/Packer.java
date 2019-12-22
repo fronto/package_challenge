@@ -7,8 +7,6 @@ import com.mobiquityinc.packer.parser.InputLineParser;
 import com.mobiquityinc.packer.parser.ParenthesesGrouper;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,8 +24,11 @@ public class Packer {
 
         try {
 
-            Path pathToFile = asPath(filePath);
+            Path pathToFile = Paths.get(filePath);
 
+            if (!pathToFile.isAbsolute()) {
+                throw new APIException("path to input file must be absolute: " + filePath);
+            }
             if (!Files.exists(pathToFile)) {
                 throw new APIException("Input file does not exist: " + filePath);
             }
@@ -42,7 +43,6 @@ public class Packer {
             PackagingResolver packagingResolver = new PackagingResolver();
 
             StringBuilder resultBuilder = new StringBuilder();
-
             specifications.forEach(spec -> {
 
                 List<Long> indexNumbers = packagingResolver.resolvePackaging(spec);
@@ -72,19 +72,4 @@ public class Packer {
         }
     }
 
-    private static Path asPath(String filePath) {
-        Path fromString = Paths.get(filePath);
-
-        if (fromString.isAbsolute()) {
-            return fromString;
-        }
-
-        try {
-            URI uri = Packer.class.getClassLoader().getResource(filePath).toURI();
-            return Paths.get(uri);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 }
