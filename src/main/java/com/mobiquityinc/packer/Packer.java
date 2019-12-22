@@ -5,7 +5,6 @@ import com.mobiquityinc.packer.domain.PackagingResolver;
 import com.mobiquityinc.packer.domain.PackagingSpecification;
 import com.mobiquityinc.packer.parser.InputLineParser;
 import com.mobiquityinc.packer.parser.ParenthesesGrouper;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -27,7 +26,6 @@ public class Packer {
 
         try {
 
-
             Path pathToFile = asPath(filePath);
 
             if (!Files.exists(pathToFile)) {
@@ -39,12 +37,7 @@ public class Packer {
             ParenthesesGrouper parenthesesGrouper = new ParenthesesGrouper();
             InputLineParser inputLineParser = new InputLineParser(parenthesesGrouper);
 
-
-            List<String> inputLines = lines.stream()
-                    .filter(StringUtils::isNotBlank)
-                    .collect(Collectors.toList());
-
-            List<PackagingSpecification> specifications = inputLines.stream().map(inputLineParser::parseLine).collect(Collectors.toList());
+            List<PackagingSpecification> specifications = lines.stream().map(inputLineParser::parseLine).collect(Collectors.toList());
 
             PackagingResolver packagingResolver = new PackagingResolver();
 
