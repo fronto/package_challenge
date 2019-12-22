@@ -1,15 +1,17 @@
 package com.mobiquityinc.packer.domain;
 
+import java.util.Objects;
+
 public class Item {
 
     private final Long indexNumber;
     private final Double weight;
     private final Long cost;
 
-    private Item(Long indexNumber, Double weight, Long cost) {
-        this.indexNumber = indexNumber;
-        this.weight = weight;
-        this.cost = cost;
+    public Item(Long indexNumber, Double weight, Long cost) {
+        this.indexNumber = Objects.requireNonNull(indexNumber);
+        this.weight = Objects.requireNonNull(weight);
+        this.cost = Objects.requireNonNull(cost);
     }
 
     public static Item parseSingleItem(String item) {
@@ -35,4 +37,20 @@ public class Item {
     public Long getCost() {
         return cost;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return indexNumber.equals(item.indexNumber) &&
+                weight.equals(item.weight) &&
+                cost.equals(item.cost);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(indexNumber, weight, cost);
+    }
+
 }
