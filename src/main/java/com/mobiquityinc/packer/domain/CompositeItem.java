@@ -21,7 +21,7 @@ public class CompositeItem {
     }
 
     public List<Long> indexNumbers() {
-        return items.stream().map(Item::getIndexNumber).collect(Collectors.toList());
+        return items.stream().map(Item::getIndexNumber).sorted().collect(Collectors.toList());
     }
 
 }
