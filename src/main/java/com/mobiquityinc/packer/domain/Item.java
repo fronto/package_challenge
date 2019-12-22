@@ -53,4 +53,12 @@ public class Item {
         return Objects.hash(indexNumber, weight, cost);
     }
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "indexNumber=" + indexNumber +
+                ", weight=" + weight +
+                ", cost=" + cost +
+                '}';
+    }
 }
