@@ -41,7 +41,7 @@ public class Packer {
         StringBuilder resultBuilder = new StringBuilder();
         specifications.forEach(spec -> {
 
-            List<Long> indexNumbers = packagingResolver.resolvePackaging(spec);
+            List<Integer> indexNumbers = packagingResolver.resolvePackaging(spec);
 
             if (indexNumbers.isEmpty()) {
                 resultBuilder.append("-\n");

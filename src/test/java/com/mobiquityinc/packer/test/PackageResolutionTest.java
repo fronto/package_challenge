@@ -16,51 +16,48 @@ public class PackageResolutionTest {
     @Test
     void resolvePackagingSeeksMaximumMoney() {
 
-        Item itemExpensive =  new Item(1l, 10d, 1);
-        Item itemCheap =  new Item(2l, 10d, 100);
+        Item itemExpensive =  new Item(1, 10d, 1);
+        Item itemCheap =  new Item(2, 10d, 100);
 
         PackagingSpecification packagingSpecification = new PackagingSpecification(10d, asList(itemExpensive, itemCheap));
 
         PackagingResolver resolver = new PackagingResolver();
 
-        List<Long> result = resolver.resolvePackaging(packagingSpecification);
+        List<Integer> result = resolver.resolvePackaging(packagingSpecification);
 
-        assertThat(result).hasSize(1).containsExactly(2l);
+        assertThat(result).hasSize(1).containsExactly(2);
 
     }
 
     @Test
     void resolvePackagingNoChoiceWhenMaxWeightExceeded() {
 
-        Item itemHeavy =  new Item(1l, 100d, 1);
+        Item itemHeavy =  new Item(1, 100d, 1);
 
         PackagingSpecification packagingSpecification = new PackagingSpecification(10d, asList(itemHeavy));
 
         PackagingResolver resolver = new PackagingResolver();
 
-        List<Long> result = resolver.resolvePackaging(packagingSpecification);
+        List<Integer> result = resolver.resolvePackaging(packagingSpecification);
 
         assertThat(result).isEmpty();
-
 
     }
 
     @Test
     void choosesLightestCombinationWhenCostsAreTheSame() {
 
-        Item item1 =  new Item(1l, 3d, 1);
-        Item item2 =  new Item(2l, 2d, 1);
-        Item item3 =  new Item(3l, 1d, 1);
+        Item item1 =  new Item(1, 3d, 1);
+        Item item2 =  new Item(2, 2d, 1);
+        Item item3 =  new Item(3, 1d, 1);
 
         PackagingSpecification packagingSpecification = new PackagingSpecification(5d, asList(item1, item2, item3));
 
         PackagingResolver resolver = new PackagingResolver();
 
-        List<Long> result = resolver.resolvePackaging(packagingSpecification);
+        List<Integer> result = resolver.resolvePackaging(packagingSpecification);
 
-        assertThat(result).contains(2l, 3l);
-
-
+        assertThat(result).contains(2, 3);
 
     }
 
@@ -68,17 +65,17 @@ public class PackageResolutionTest {
     @Test
     void choosesBestPriceCombinationWithinWeightConstraints() {
 
-        Item item1 =  new Item(1l, 1d, 1);
-        Item item2 =  new Item(2l, 2d, 2);
-        Item item3 =  new Item(3l, 3d, 3);
+        Item item1 =  new Item(1, 1d, 1);
+        Item item2 =  new Item(2, 2d, 2);
+        Item item3 =  new Item(3, 3d, 3);
 
         PackagingSpecification packagingSpecification = new PackagingSpecification(5d, asList(item1, item2, item3));
 
         PackagingResolver resolver = new PackagingResolver();
 
-        List<Long> result = resolver.resolvePackaging(packagingSpecification);
+        List<Integer> result = resolver.resolvePackaging(packagingSpecification);
 
-        assertThat(result).contains(2l, 2l);
+        assertThat(result).contains(2, 2);
 
     }
 
@@ -89,7 +86,7 @@ public class PackageResolutionTest {
 
         PackagingResolver resolver = new PackagingResolver();
 
-        List<Long> result = resolver.resolvePackaging(packagingSpecification);
+        List<Integer> result = resolver.resolvePackaging(packagingSpecification);
 
         assertThat(result).isEmpty();
 

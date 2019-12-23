@@ -20,7 +20,7 @@ public class CompositeItem {
         return items.stream().map(Item::getCost).reduce(0, (x, y) -> x + y);
     }
 
-    public List<Long> indexNumbers() {
+    public List<Integer> indexNumbers() {
         return items.stream().map(Item::getIndexNumber).sorted().collect(Collectors.toList());
     }
 

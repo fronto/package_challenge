@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class PackagingResolver {
 
-    public List<Long> resolvePackaging(PackagingSpecification specification) {
+    public List<Integer> resolvePackaging(PackagingSpecification specification) {
 
         Double weightLimit = specification.getWeightLimit();
         List<Item> itemsToPack = specification.getItemsToPack();

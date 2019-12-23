@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Item {
 
-    private final Long indexNumber;
+    private final Integer indexNumber;
     private final Double weight;
     private final Integer cost;
 
-    public Item(Long indexNumber, Double weight, Integer cost) {
+    public Item(Integer indexNumber, Double weight, Integer cost) {
         this.indexNumber = Objects.requireNonNull(indexNumber);
         this.weight = Objects.requireNonNull(weight);
         this.cost = Objects.requireNonNull(cost);
@@ -18,7 +18,7 @@ public class Item {
 
         String[] fields = item.split(",");
 
-        Long indexNumber = Long.valueOf(fields[0]);
+        Integer indexNumber = Integer.valueOf(fields[0]);
         Double weight = Double.valueOf(fields[1]);
         Integer amount = Integer.valueOf(fields[2].substring(1));
 
@@ -26,7 +26,7 @@ public class Item {
 
     }
 
-    public Long getIndexNumber() {
+    public Integer getIndexNumber() {
         return indexNumber;
     }
 
