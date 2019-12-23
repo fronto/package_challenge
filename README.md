@@ -7,7 +7,7 @@ To build the application run `mvn clean install`
 To see the packer in action have a look at run `loadInputFileAndRunPacker()` in the class `EndToEndTest`
 
 
-## My general algorithm was as follows:
+## My general algorithm is as follows:
 
 1. For each input line, generate all potential combinations of input items using recursion
 2. Check the net weight of each combination and drop it if it is outside the weight limit
