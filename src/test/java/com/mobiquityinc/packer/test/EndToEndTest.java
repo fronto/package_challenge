@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class EndToEndTest {
 
     @Test
-    void loadInPutFileAndRunPacker() throws APIException {
+    void loadInputFileAndRunPacker() throws APIException {
 
         Path path = toAbsolutePath("sample_input.txt");
         String result = Packer.pack(path.toString());
