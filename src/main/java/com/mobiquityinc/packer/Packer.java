@@ -102,11 +102,11 @@ public class Packer {
 
         for (Item item : specification.getItemsToPack()) {
 
-            if (item.getWeight() > 100) {
+            if (item.getWeight() > maxItemWeight) {
                 throw new APIException(String.format("Weight of item cannot exceed %s: %s", maxItemWeight, item));
             }
 
-            if (item.getCost() > 100) {
+            if (item.getCost() > maxItemCost) {
                 throw new APIException(String.format("Cost of item cannot exceed %s : %s", maxItemCost, item));
             }
         }
