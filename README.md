@@ -20,8 +20,16 @@ Admittedly there are further optimizations that are still possible. For example 
 the weight and cost as part and parcel of the recursive generation of combinations of items,
 would be a way of reducing and re-using computations. Perhaps this is necessary for larger
 input sets? All combinations will still have to be computed, but doing it "on the fly"
-as part of generating the combinations should provide oportunities for re-use. Please let
+as part of generating the combinations should provide opportunities for re-use. Please let
 me know if you want me to introduce this...
+
+Although no SLA was specified I did implement an end-to-end test with a 2s timout on an input
+ row with the upper bound of 15 items to make sure that the computations take place
+ in a reasonable amount of time. On my hardware the row was processed in about 200ms, therefore
+ 2s is a very generous timeout that should work on most machines.
+
+With the above stated benchmark in mind I decided not to compromise the simplicity or the
+ the algorithm to squeeze some extra performance.
 
 Generally I do not comment my code that much, as I believe one should only comment what the
 code cannot say. For the most part I try to use meaningful variable, method and class names.

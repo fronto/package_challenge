@@ -3,6 +3,7 @@ package com.mobiquityinc.packer.test;
 import com.mobiquityinc.exception.APIException;
 import com.mobiquityinc.packer.Packer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,6 +27,17 @@ public class EndToEndTest {
         for(int i = 0; i < lines.length; i++) {
             assertEquals(expected[i], lines[i]);
         }
+    }
+
+
+    @Timeout(value = 2l)
+    @Test
+    void longRow() throws APIException {
+
+        //verify long row with 15 elements is handled in under two seconds
+        Path path = toAbsolutePath("long_row.txt");
+        Packer.pack(path.toString());
+
     }
 
     @Test
