@@ -28,7 +28,7 @@ Although no SLA was specified I did implement an end-to-end test with a 2s timou
  in a reasonable amount of time. On my hardware the row was processed in about 200ms, therefore
  2s is a very generous timeout that should work on most machines.
 
-With the above stated benchmark in mind I decided not to compromise the simplicity or the
+With the above stated benchmark in mind I decided not to compromise the simplicity of the
  algorithm to squeeze some extra performance.
 
 Generally I do not comment my code that much, as I believe one should only comment what the
