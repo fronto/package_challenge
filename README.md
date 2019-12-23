@@ -29,7 +29,7 @@ Although no SLA was specified I did implement an end-to-end test with a 2s timou
  2s is a very generous timeout that should work on most machines.
 
 With the above stated benchmark in mind I decided not to compromise the simplicity of the
- algorithm to squeeze some extra performance.
+ algorithm to squeeze out some extra performance.
 
 Generally I do not comment my code that much, as I believe one should only comment what the
 code cannot say. For the most part I try to use meaningful variable, method and class names.
