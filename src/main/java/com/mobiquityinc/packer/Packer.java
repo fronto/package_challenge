@@ -17,46 +17,53 @@ import java.util.stream.Collectors;
 
 public class Packer {
 
-    private Packer() {
+    private final PackagingResolver packagingResolver;
+    private final InputLineParser inputLineParser;
 
+    private Packer(PackagingResolver packagingResolver, InputLineParser inputLineParser) {
+        this.packagingResolver = packagingResolver;
+        this.inputLineParser = inputLineParser;
     }
 
     public static String pack(String filePath) throws APIException {
 
-        List<PackagingSpecification> specifications = parseInput(filePath);
+        ParenthesesGrouper parenthesesGrouper = new ParenthesesGrouper();
+        InputLineParser inputLineParser = new InputLineParser(parenthesesGrouper);
+        PackagingResolver packagingResolver = new PackagingResolver();
+        Packer packer = new Packer(packagingResolver, inputLineParser);
+
+        List<PackagingSpecification> specifications = packer.parseInput(filePath);
+        return packer.resolvePackages(specifications);
+
+    }
+
+    private String resolvePackages(List<PackagingSpecification> specifications) throws APIException {
 
         try {
 
-            return resolvePackages(specifications);
+            StringBuilder resultBuilder = new StringBuilder();
+            specifications.forEach(spec -> {
+
+                List<Integer> indexNumbers = packagingResolver.resolvePackaging(spec);
+
+                if (indexNumbers.isEmpty()) {
+                    resultBuilder.append("-\n");
+                } else {
+                    String outputLine = indexNumbers.stream()
+                            .map(l -> l.toString())
+                            .collect(Collectors.joining(","));
+                    resultBuilder.append(outputLine).append("\n");
+                }
+            });
+
+            return resultBuilder.toString();
 
         } catch (RuntimeException r) {
             throw new APIException("error resolving packages", r);
         }
     }
 
-    private static String resolvePackages(List<PackagingSpecification> specifications) {
-
-        PackagingResolver packagingResolver = new PackagingResolver();
-
-        StringBuilder resultBuilder = new StringBuilder();
-        specifications.forEach(spec -> {
-
-            List<Integer> indexNumbers = packagingResolver.resolvePackaging(spec);
-
-            if (indexNumbers.isEmpty()) {
-                resultBuilder.append("-\n");
-            } else {
-                String outputLine = indexNumbers.stream()
-                        .map(l -> l.toString())
-                        .collect(Collectors.joining(","));
-                resultBuilder.append(outputLine).append("\n");
-            }
-        });
-
-        return resultBuilder.toString();
-    }
-
-    private static List<PackagingSpecification> parseInput(String filePath) throws APIException {
+    private List<PackagingSpecification> parseInput(String filePath) throws APIException {
 
         try {
 
@@ -70,9 +77,6 @@ public class Packer {
             }
 
             List<String> lines = readLines(pathToFile);
-
-            ParenthesesGrouper parenthesesGrouper = new ParenthesesGrouper();
-            InputLineParser inputLineParser = new InputLineParser(parenthesesGrouper);
 
             List<PackagingSpecification> specifications = lines.stream().map(inputLineParser::parseLine).collect(Collectors.toList());
 
