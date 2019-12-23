@@ -16,8 +16,8 @@ public class CompositeItem {
         return items.stream().map(Item::getWeight).reduce(0d, (x, y) -> x + y);
     }
 
-    public Long combinedCost() {
-        return items.stream().map(Item::getCost).reduce(0l, (x, y) -> x + y);
+    public Integer combinedCost() {
+        return items.stream().map(Item::getCost).reduce(0, (x, y) -> x + y);
     }
 
     public List<Long> indexNumbers() {

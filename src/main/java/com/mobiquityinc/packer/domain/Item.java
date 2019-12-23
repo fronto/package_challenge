@@ -6,9 +6,9 @@ public class Item {
 
     private final Long indexNumber;
     private final Double weight;
-    private final Long cost;
+    private final Integer cost;
 
-    public Item(Long indexNumber, Double weight, Long cost) {
+    public Item(Long indexNumber, Double weight, Integer cost) {
         this.indexNumber = Objects.requireNonNull(indexNumber);
         this.weight = Objects.requireNonNull(weight);
         this.cost = Objects.requireNonNull(cost);
@@ -20,7 +20,7 @@ public class Item {
 
         Long indexNumber = Long.valueOf(fields[0]);
         Double weight = Double.valueOf(fields[1]);
-        Long amount = Long.valueOf(fields[2].substring(1));
+        Integer amount = Integer.valueOf(fields[2].substring(1));
 
         return new Item(indexNumber, weight, amount);
 
@@ -34,7 +34,7 @@ public class Item {
         return weight;
     }
 
-    public Long getCost() {
+    public Integer getCost() {
         return cost;
     }
 
