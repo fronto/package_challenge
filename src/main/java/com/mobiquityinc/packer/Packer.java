@@ -95,6 +95,7 @@ public class Packer {
         if (specification.getWeightLimit() > maxPackageWeight) {
             throw new APIException(String.format("Package weight cannot exceed %s : %s", maxPackageWeight, specification.getWeightLimit()));
         }
+
         for (Item item : specification.getItemsToPack()) {
 
             if (item.getWeight() > 100) {

@@ -39,6 +39,42 @@ public class EndToEndTest {
 
     }
 
+    @Test
+    void cannotExceedMaxPackageWeight() {
+
+        assertThrows(APIException.class, () -> {
+            Path path = toAbsolutePath("maximum_package_weight_exceeded.txt");
+            Packer.pack(path.toString());
+
+        });
+
+    }
+
+    @Test
+    void cannotExceedMaxItemWeight() {
+
+        assertThrows(APIException.class, () -> {
+
+            Path path = toAbsolutePath("maximum_item_weight_exceeded.txt");
+            Packer.pack(path.toString());
+
+        });
+
+    }
+
+    @Test
+    void cannotExceedMaxCost() {
+
+        assertThrows(APIException.class, () -> {
+
+            Path path = toAbsolutePath("maximum_cost_exceeded.txt");
+            Packer.pack(path.toString());
+
+        });
+
+    }
+
+
     private static Path toAbsolutePath(String filePath) {
         Path fromString = Paths.get(filePath);
 
