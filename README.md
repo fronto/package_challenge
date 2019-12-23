@@ -18,10 +18,10 @@ To see the packer in action have a look at run `loadInputFileAndRunPacker()` in 
 
 Admittedly there are further optimizations that are still possible. For example calculating 
 the weight and cost as part and parcel of the recursive generation of combinations of items,
-would be a way of reducing and re-using computations. I did not do this because I felt that 
-given the size if the inputs, the efficiency gains would be marginal and it would introduce 
-substantially more complexity to the algorithm, making the code more difficult to understand
- and more difficult to test.
+would be a way of reducing and re-using computations. Perhaps this is necessary for larger
+input sets? All combinations will still have to be computed, but doing it "on the fly"
+as part of generating the combinations should provide oportunities for re-use. Please let
+me know if you want me to introduce this...
 
 Generally I do not comment my code that much, as I believe one should only comment what the
 code cannot say. For the most part I try to use meaningful variable, method and class names.
