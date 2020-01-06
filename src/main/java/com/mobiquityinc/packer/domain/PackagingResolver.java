@@ -20,10 +20,10 @@ public class PackagingResolver {
                 .filter(x -> x.combinedWeight() <= weightLimit)
                 .collect(Collectors.toList());
 
-        Optional<CompositeItem> max = lightEnough.stream()
-                .max(Comparator.comparing(CompositeItem::combinedCost));
+        if(!lightEnough.isEmpty()) {
 
-        if(max.isPresent()) {
+            Optional<CompositeItem> max = lightEnough.stream()
+                .max(Comparator.comparing(CompositeItem::combinedCost));
 
             Integer maximumCost = max.get().combinedCost();
             Optional<CompositeItem> minWeight = lightEnough.stream()
