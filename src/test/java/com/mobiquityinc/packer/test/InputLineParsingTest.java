@@ -1,9 +1,8 @@
 package com.mobiquityinc.packer.test;
 
-import com.mobiquityinc.exception.APIException;
-import com.mobiquityinc.packer.parser.InputLineParser;
 import com.mobiquityinc.packer.domain.Item;
 import com.mobiquityinc.packer.domain.PackagingSpecification;
+import com.mobiquityinc.packer.parser.InputLineParser;
 import com.mobiquityinc.packer.parser.ParenthesesGrouper;
 import org.junit.jupiter.api.Test;
 
