@@ -28,7 +28,37 @@ public class ItemStack implements SnapshotStack<Item, ItemStack> {
         return result;
     }
 
-    static class CachingNode {
+    private CachingNode head;
+
+    public void push(Item item) {
+        if(head == null) {
+            head = new CachingNode();
+            head.value = item;
+        } else {
+            CachingNode temp = head;
+            head = new CachingNode();
+            head.next = temp;
+            head.value = item;
+        }
+
+    }
+
+    public Item pop() {
+        if(head == null) {
+            throw new IllegalStateException("cannot pop from empty stack");
+        }
+        Item temp = head.value;
+        head = head.next;
+        return temp;
+    }
+
+    public ItemStack snapshot() {
+        ItemStack itemStack = new ItemStack();
+        itemStack.head = this.head;
+        return itemStack;
+    }
+
+    private static class CachingNode {
 
         Item value;
         CachingNode next;
@@ -58,36 +88,6 @@ public class ItemStack implements SnapshotStack<Item, ItemStack> {
             return cachedCost.get();
         }
 
-    }
-
-    private CachingNode head;
-
-    public void push(Item item) {
-        if(head == null) {
-            head = new CachingNode();
-            head.value = item;
-        } else {
-            CachingNode temp = head;
-            head = new CachingNode();
-            head.next = temp;
-            head.value = item;
-        }
-
-    }
-
-    public Item pop() {
-        if(head == null) {
-            throw new IllegalStateException("cannot pop from empty stack");
-        }
-        Item temp = head.value;
-        head = head.next;
-        return temp;
-    }
-
-    public ItemStack snapshot() {
-        ItemStack itemStack = new ItemStack();
-        itemStack.head = this.head;
-        return itemStack;
     }
 
 }
