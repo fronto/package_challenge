@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class InputLineParsingTest {
 
     @Test
-    void canParseMaximumWeight() throws APIException {
+    void canParseMaximumWeight() {
 
         ParenthesesGrouper parenthesesGrouper = new ParenthesesGrouper();
         InputLineParser inputLineParser = new InputLineParser(parenthesesGrouper);
@@ -27,7 +27,7 @@ public class InputLineParsingTest {
 
 
     @Test
-    void canParseCorrectNumberOfItems() throws APIException {
+    void canParseCorrectNumberOfItems() {
 
         ParenthesesGrouper parenthesesGrouper = new ParenthesesGrouper();
         InputLineParser inputLineParser = new InputLineParser(parenthesesGrouper);
@@ -38,7 +38,7 @@ public class InputLineParsingTest {
     }
 
     @Test
-    void canParseItemFromItemLine() throws APIException {
+    void canParseItemFromItemLine() {
 
         ParenthesesGrouper parenthesesGrouper = new ParenthesesGrouper();
         InputLineParser inputLineParser = new InputLineParser(parenthesesGrouper);
@@ -49,18 +49,6 @@ public class InputLineParsingTest {
         assertEquals(1, item.getIndexNumber());
         assertEquals(53.38d, item.getWeight());
         assertEquals(45, item.getCost());
-
-    }
-
-    @Test
-    void canParseSingleItem() {
-
-        Item item = Item.parseSingleItem("1,53.38,€45");
-
-        assertEquals(1, item.getIndexNumber());
-        assertEquals(53.38d, item.getWeight());
-        assertEquals(45, item.getCost());
-
 
     }
 

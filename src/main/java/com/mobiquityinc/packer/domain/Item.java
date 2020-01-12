@@ -14,18 +14,6 @@ public class Item {
         this.cost = Objects.requireNonNull(cost);
     }
 
-    public static Item parseSingleItem(String item) {
-
-        String[] fields = item.split(",");
-
-        Integer indexNumber = Integer.valueOf(fields[0]);
-        Double weight = Double.valueOf(fields[1]);
-        Integer amount = Integer.valueOf(fields[2].substring(1));
-
-        return new Item(indexNumber, weight, amount);
-
-    }
-
     public Integer getIndexNumber() {
         return indexNumber;
     }
