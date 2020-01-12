@@ -1,19 +1,22 @@
 package com.mobiquityinc.packer.util;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Supplier;
 
-public class CombinationGenerator<T> {
+public class CombinationGenerator<I, S extends SnapshotStack<I, S>> {
 
-    private final List<T> input;
-    private final List<Set<T>> combinations = new LinkedList<>();
-    private final List<T> currentCombination = new LinkedList<>();
+    private final List<I> input;
+    private final List<S> combinations = new LinkedList<>();
+    private final S currentCombination;
     private boolean alreadyRun = false;
 
-    public CombinationGenerator(List<T> input) {
+    public CombinationGenerator(List<I> input, Supplier<S> constructor) {
         this.input = input;
+        this.currentCombination = constructor.get();
     }
 
-    public List<Set<T>> combinations() {
+    public List<S> combinations() {
 
         try {
 
@@ -33,13 +36,11 @@ public class CombinationGenerator<T> {
     private void combine(int index) {
 
         for(int i = index; i < input.size(); i++) {
-            T current = input.get(i);
-            currentCombination.add(current);
-            Set<T> snapshot = new HashSet<>();
-            snapshot.addAll(currentCombination);
-            combinations.add(snapshot);
+            I current = input.get(i);
+            currentCombination.push(current);
+            combinations.add(currentCombination.snapshot());
             combine(i+1);
-            currentCombination.remove(current);
+            currentCombination.pop();
         }
 
     }

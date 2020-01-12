@@ -12,26 +12,27 @@ public class PackagingResolver {
         Double weightLimit = specification.getWeightLimit();
         List<Item> itemsToPack = specification.getItemsToPack();
 
-        CombinationGenerator<Item> generator = new CombinationGenerator<>(itemsToPack);
-        List<Set<Item>> combinations = generator.combinations();
+        CombinationGenerator<Item, ItemStack> generator = new CombinationGenerator<>(itemsToPack, () -> new ItemStack());
+        List<ItemStack> combinations = generator.combinations();
 
-        List<CompositeItem> lightEnough = combinations.stream()
-                .map(CompositeItem::new)
+        List<ItemStack> lightEnough = combinations.stream()
                 .filter(x -> x.combinedWeight() <= weightLimit)
                 .collect(Collectors.toList());
 
         if(!lightEnough.isEmpty()) {
 
-            Optional<CompositeItem> max = lightEnough.stream()
-                .max(Comparator.comparing(CompositeItem::combinedCost));
+            Optional<ItemStack> max = lightEnough.stream()
+                .max(Comparator.comparing(ItemStack::combinedCost));
 
             Integer maximumCost = max.get().combinedCost();
-            Optional<CompositeItem> minWeight = lightEnough.stream()
-                    .filter(x -> maximumCost.equals(x.combinedCost()))
-                    .min(Comparator.comparing(CompositeItem::combinedWeight));
+
+            List<ItemStack> mostExpensive = lightEnough.stream()
+                    .filter(x -> maximumCost.equals(x.combinedCost())).collect(Collectors.toList());
+
+            Optional<ItemStack> minWeight = mostExpensive.stream().min(Comparator.comparing(ItemStack::combinedWeight));
 
             return minWeight
-                    .map(CompositeItem::indexNumbers)
+                    .map(ItemStack::indexNumbers)
                     .get();
 
         }
