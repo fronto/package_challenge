@@ -12,7 +12,9 @@ public class PackagingResolver {
         Double weightLimit = specification.getWeightLimit();
         List<Item> itemsToPack = specification.getItemsToPack();
 
-        CombinationGenerator<Item, ItemStack> generator = new CombinationGenerator<>(itemsToPack, () -> new ItemStack());
+        List<Item> preFilteredOnWeight = itemsToPack.stream().filter(item -> item.getWeight() <= weightLimit).collect(Collectors.toList());
+
+        CombinationGenerator<Item, ItemStack> generator = new CombinationGenerator<>(preFilteredOnWeight, () -> new ItemStack());
         List<ItemStack> combinations = generator.combinations();
 
         List<ItemStack> lightEnough = combinations.stream()
