@@ -35,7 +35,7 @@ public class EndToEndTest {
     void longRow() throws APIException {
 
         //verify long row with 15 elements is handled in under two seconds
-        Path path = toAbsolutePath("long_row.txt");
+        Path path = toAbsolutePath("100_long_rows.txt");
         Packer.pack(path.toString());
 
     }
