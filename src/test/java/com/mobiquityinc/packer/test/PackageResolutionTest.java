@@ -16,10 +16,10 @@ public class PackageResolutionTest {
     @Test
     void resolvePackagingSeeksMaximumMoney() {
 
-        Item itemExpensive =  new Item(1, 10d, 1);
-        Item itemCheap =  new Item(2, 10d, 100);
+        Item itemCheap =  new Item(1, 10d, 1);
+        Item itemExpensive =  new Item(2, 10d, 100);
 
-        PackagingSpecification packagingSpecification = new PackagingSpecification(10d, asList(itemExpensive, itemCheap));
+        PackagingSpecification packagingSpecification = new PackagingSpecification(10d, asList(itemCheap, itemExpensive));
 
         PackagingResolver resolver = new PackagingResolver();
 
