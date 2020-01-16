@@ -75,7 +75,7 @@ public class PackageResolutionTest {
 
         List<Integer> result = resolver.resolvePackaging(packagingSpecification);
 
-        assertThat(result).contains(2, 2);
+        assertThat(result).containsExactly(2, 3);
 
     }
 
