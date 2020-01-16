@@ -24,7 +24,7 @@ public class EndToEndTest {
         String[] lines = result.split("\n");
         String[] expected = {"4", "-", "2,7", "8,9"};
 
-        for(int i = 0; i < lines.length; i++) {
+        for(int i = 0; i < expected.length; i++) {
             assertEquals(expected[i], lines[i]);
         }
     }
